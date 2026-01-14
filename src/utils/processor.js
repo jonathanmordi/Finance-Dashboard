@@ -53,23 +53,15 @@ export const calculateTotals = (transactions) => {
         }
 
         return acc;
-    }, {income: 0, expenses: 0}); // starting state
+    }, {income: 0, expenses: 0}); 
 };
 
 
 export const processTransactionData = (csvRows) => {
-  // STEP A: Create a variable that slices the header off 'csvRows'
   const dataOnly = csvRows.slice(1);
-  
-  // STEP B: Create the array of objects
-  // Use .map() to send each row through 'parseLine'
-  // Remember the .filter() 'bouncer' we talked about!
   const cleanTransactions = dataOnly.map(row => parseLine(row)).filter(item => item != null);
 
-  // STEP C: Use the 'calculateTotals' function you just wrote
   const finalTotals = calculateTotals(cleanTransactions)
-
-  // STEP D: Return everything as one "Report"
   return {
     transactions: cleanTransactions,
     summary: finalTotals
